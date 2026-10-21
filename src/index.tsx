@@ -8,18 +8,23 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./app/MaterialTheme";
 import "./css/index.css";
+import { BrowserRouter as Router } from "react-router-dom"; 
+// react-router-dom paketidan BrowserRouter komponentini olib,
+// unga qisqaroq Router degan nom berib ishlatyapmiz
 
-
+// ReactDOM.render aslida oddiy funksiya, u 2 ta argument oladi
 ReactDOM.render(
-  <React.StrictMode>
+  <React.StrictMode> 
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <Router>
+          <App />
+        </Router>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root")   // divni idsi
 );
 
 // If you want to start measuring performance in your app, pass a function
