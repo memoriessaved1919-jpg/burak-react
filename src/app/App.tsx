@@ -1,6 +1,4 @@
-import { Container } from "@mui/material";
-import React from "react";
-import { Link, Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import "../css/app.css";
 import { HomePage } from "./screens/homePage";
 import { OrdersPage } from "./screens/ordersPage";
