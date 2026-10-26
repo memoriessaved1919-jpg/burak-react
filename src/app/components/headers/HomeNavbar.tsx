@@ -61,7 +61,7 @@ export function HomeNavbar() {
         </Stack>
         <Stack className="header-frame">
           <Stack className="detail">
-            <Box className="head-mail-txt">World's Most Delicious Cousine</Box>
+            <Box className="head-main-txt">World's Most Delicious Cousine</Box>
             <Box className="wel-txt">The Choice, not just a choice</Box>
             <Box className="service-txt">24 hours service</Box>
             <Box className="signup">
