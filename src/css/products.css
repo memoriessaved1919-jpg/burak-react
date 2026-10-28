@@ -1,0 +1,359 @@
+.products-page {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background: #f8f8ff;
+}
+
+/** PRODUCTS LIST **/
+
+.products-page .products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f8f8ff;
+}
+
+.products-page .products .products-main {
+  margin-top: 83px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* SUBJECT */
+.products-page .products .avatar-big-box {
+  width: 100%;
+  height: 46px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 126px;
+}
+
+.products-page .products .top-title {
+  width: 328px;
+  font-family: "Roboto Serif";
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 46px;
+  color: #343434;
+}
+
+.products-page .products .single-search {
+  position: relative;
+  width: 366px;
+  height: 32px;
+}
+
+.products-page .products .single-search-input {
+  width: 360px;
+  height: 32px;
+  padding-left: 17px;
+  border: 1px solid #ffffff;
+  border-radius: 18.5px;
+  background: #fffcfc;
+  font-family: "Quicksand";
+  font-size: 15px;
+  color: #4a4a4a;
+  outline: none;
+}
+
+.products-page .products .single-button-search {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 106px;
+  height: 32px;
+  border-radius: 18.5px;
+  background: #343434;
+  font-family: "Quicksand";
+  font-weight: 700;
+  font-size: 15px;
+  color: #d7b586;
+}
+
+/* FILTER */
+.products-page .products .dishes-filter-section {
+  margin-top: 62px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.products-page .products .filter-btn {
+  width: 70px;
+  height: 37px;
+  border-radius: 8px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.products-page .products .filter-btn.active {
+  background: #343434;
+  color: #d7b586;
+}
+
+/* CATEGORY + PRODUCTS */
+.products-page .products .list-category-section {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.products-page .products .product-category {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.products-page .products .category-btn {
+  min-width: 36px;
+  width: 36px;
+  padding: 10px 0;
+  border-radius: 8px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.products-page .products .category-btn.active {
+  background: #343434;
+  color: #d7b586;
+}
+
+.products-page .products .product-wrapper {
+  width: 1194px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 35px 34px;
+}
+
+/* CARD */
+.products-page .products .product-card {
+  width: 273px;
+  height: 361px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.products-page .products .product-img {
+  position: relative;
+  width: 273px;
+  height: 275px;
+  border-radius: 0 50px 0 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.products-page .products .product-sale {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 90px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background: #ff9200;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.products-page .products .shop-btn {
+  position: absolute;
+  top: 217px;
+  left: 105px;
+  min-width: 64px;
+  width: 64px;
+  height: 46px;
+  border-radius: 10px;
+  border: 1px solid #e3c08d;
+  background: #bb2fc8;
+  opacity: 0;
+  transition: opacity 250ms ease-in-out;
+  z-index: 3;
+}
+
+.products-page .products .view-btn {
+  position: absolute;
+  top: 220px;
+  left: 196px;
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #000000;
+  opacity: 0;
+  transition: opacity 250ms ease-in-out;
+  z-index: 3;
+}
+
+.products-page .products .product-card:hover .shop-btn,
+.products-page .products .product-card:hover .view-btn {
+  opacity: 1;
+}
+
+.products-page .products .product-desc {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.products-page .products .product-title {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  color: #343434;
+}
+
+.products-page .products .product-price {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  color: #e3c08d;
+}
+
+.products-page .products .product-price img {
+  width: 32px;
+  height: 31px;
+  border-radius: 20px;
+}
+
+.products-page .products .no-data {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins";
+  font-size: 30px;
+  color: #e3c08d;
+}
+
+/* PAGINATION */
+.products-page .products .pagination-section {
+  margin: 48px 0 70px 0;
+  display: flex;
+  align-items: center;
+}
+
+/** OUR FAMILY BRANDS **/
+
+.products-page .products .brands-logo {
+  margin-top: 0;
+  width: 100%;
+  height: 630px;
+  display: flex;
+  background: #0d1518;
+}
+
+.products-page .products .family-brands {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-page .products .family-brands .category-title {
+  margin-top: 84px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 46px;
+  color: #e3c08d;
+}
+
+.products-page .products .brand-list {
+  margin-top: 58px;
+  width: 1294px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.products-page .products .review-box {
+  width: 259px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background: #0d1518;
+  box-shadow: 0 0 22px #e4d4d4;
+}
+
+.products-page .products .review-box img {
+  width: 239px;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/** OUR ADDRESS **/
+
+.products-page .products .address {
+  width: 100%;
+  display: flex;
+  background: #f8f8ff;
+}
+
+.products-page .products .address-area {
+  margin: 47px 0 89px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-page .products .address-area .title {
+  font-family: "Roboto Serif", serif;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 53px;
+  color: #343434;
+}
+
+.products-page .products .address-map {
+  margin-top: 81px;
+  width: 1300px;
+  height: 567px;
+  border: 0;
+}
+
+/* HOVER: qora parda */
+.products-page .products .product-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0 50px 0 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 2;
+}
+
+.products-page .products .product-card:hover .product-img::before {
+  opacity: 1;
+}
