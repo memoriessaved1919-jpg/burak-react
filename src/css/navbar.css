@@ -101,7 +101,7 @@
 }
 
 .home-navbar .navbar-container .header-frame .detail .wel-txt {
-    width: 510px;
+    width: 560px;
     height: 42px;
     font-family: "Roboto Serif";
     font-size: 36px;
@@ -114,7 +114,7 @@
 
 .home-navbar .navbar-container .header-frame .detail .service-txt {
     margin-top: 23px;
-    width: 153px;
+    width: auto;
     height: 23px;
     font-family: "Roboto Serif";
     font-size: 20px;
