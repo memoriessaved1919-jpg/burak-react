@@ -21,6 +21,7 @@ class Test extends Component {
   };
 
   componentDidMount() {
+    // tug'ilish
     console.log("componentDidMount(");
     // runs after first render - RETRIEVE DATA FROM BACKEND
     // backend’dan ma’lumot olish yani olib kelish

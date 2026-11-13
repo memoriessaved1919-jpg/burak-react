@@ -1,3 +1,5 @@
+// Asosiy rout fayl ichida ishlatilgan App
+
 import { Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
 import OrdersPage from "./screens/ordersPage";

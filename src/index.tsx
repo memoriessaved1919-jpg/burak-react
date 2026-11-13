@@ -1,3 +1,5 @@
+// Asosiy rout fayl, bu fayl orqali React ilovasi ishga tushiriladi va barcha kerakli providerlar bilan o'raladi.
+
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
