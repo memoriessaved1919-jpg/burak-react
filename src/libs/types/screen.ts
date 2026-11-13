@@ -1,6 +1,8 @@
 import { Member } from "./member";
 import { Product } from "./product";
 
+// Store qanday ko'rinishda bo'ladi.
+
 /** REACT APP STATE **/
 export interface AppRootState {
   homePage: HomePageState;
