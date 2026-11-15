@@ -5,7 +5,7 @@ import reduxLogger from "redux-logger";
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     //@ts-ignore //
-    getDefaultMiddleware().concat(reduxLogger),
+    getDefaultMiddleware().concat(reduxLogger), //logger console’ga yozadi
   reducer: {
     homePage: HomePageReducer, // bu yerda homePageSlice.reducer ni ulayapmiz, bu reducer orqali slice holati Redux store ga yoziladi
   },

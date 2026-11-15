@@ -11,6 +11,7 @@ const homePageSlice = createSlice({
   name: "homePage", // Slice nomi, bu nom Redux store da ishlatiladi
   initialState, // Slice boshlang'ich holati, bu holat Redux store da saqlanadi
   reducers: {
+    // reducer esa store’ni yangilaydigan ishchi
     // Reducerlar, bu funksiyalar orqali slice holatini o'zgartirish mumkin
     setPopularDishes: (state, action) => {
       // state - yuqoridagi initialState, action - reducer orqali yuborilgan malumotlar
