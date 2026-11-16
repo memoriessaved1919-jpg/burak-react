@@ -1,12 +1,12 @@
 import axios from "axios";
-import { serviceApi } from "../../libs/config";
+import { serverApi } from "../../libs/config";
 import { Product, ProductInquiry } from "../../libs/types/product";
 
 class ProductService {
   private readonly path: string;
 
   constructor() {
-    this.path = serviceApi;
+    this.path = serverApi;
   }
 
   public async getProducts(input: ProductInquiry): Promise<Product[]> {

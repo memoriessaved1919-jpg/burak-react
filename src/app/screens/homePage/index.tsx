@@ -7,21 +7,20 @@ import Events from "./Events";
 import NewDishes from "./NewDishes";
 import PopularDishes from "./PopularDishes";
 import Statistics from "./Statistics";
-import "../../../css/home.css";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
-import { setPopularDishes } from "./slice";
-import { retrievePopularDishes } from "./selector";
+import { setNewDishes, setPopularDishes } from "./slice";
 import { Product } from "../../../libs/types/product";
-import ProductService from "../../sevices/ProductService";
+import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../libs/enums/product.enum";
+import "../../../css/home.css";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
   // bu yerda dispatch orqali actionlarni chaqirish uchun funksiya yaratildi
   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)), // bu yerda setPopularDishes actionini chaqirib, data ni reducerga yuboradi.
+  setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)), // bu yerda setNewDishes actionini chaqirib, data ni reducerga yuboradi.
 }); // bu yerda setPopularDishes reducer orqliy o'zimizni setPopularDishes komandamizni hosil qilyapmiz, data ni reducerga yuboradi
 /* const popularDishesRetriever = createSelector(
   retrievePopularDishes,
@@ -32,7 +31,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
 
 /** View/ UI **/
 export default function HomePage() {
-  const { setPopularDishes } = actionDispatch(useDispatch()); //useDispatch bilan yozadi
+  const { setPopularDishes, setNewDishes } = actionDispatch(useDispatch()); //useDispatch bilan yozadi
   // const { popularDishes } = useSelector(popularDishesRetriever); //. useSelector bilan o’qiydi, bu yerda useSelector orqali popularDishes ni olish uchun funksiya yaratildi
   // Malumotlarni Redux arxitekturiga yozish mantigi bilan ishlash uchun,
   // bu component ichida uch hil lifecycle metodlarini ishlatish mumkin.
@@ -56,6 +55,18 @@ export default function HomePage() {
       })
       .catch((err) => console.log(err));
     // Slice: Backenddan olgan malumotlarimiz Reducer orqali Redux store ga yoziladi => Store
+
+    product
+      .getProducts({
+        page: 1,
+        limit: 4,
+        order: "createdAt",
+        //productCollection: ProductCollection.DISH,
+      })
+      .then((data) => {
+        setNewDishes(data); // Backenddan olingan malumotlar Redux store ga yoziladi
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   // console.log("popularDishes:", popularDishes);
