@@ -10,29 +10,30 @@ import Statistics from "./Statistics";
 
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setNewDishes, setPopularDishes } from "./slice";
+import { setNewDishes, setPopularDishes, setTopUsers } from "./slice";
 import { Product } from "../../../libs/types/product";
 import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../libs/enums/product.enum";
+import MemberService from "../../services/MemberService";
 import "../../../css/home.css";
+import { Member } from "../../../libs/types/member";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
   // bu yerda dispatch orqali actionlarni chaqirish uchun funksiya yaratildi
   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)), // bu yerda setPopularDishes actionini chaqirib, data ni reducerga yuboradi.
   setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)), // bu yerda setNewDishes actionini chaqirib, data ni reducerga yuboradi.
+  setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)), // bu yerda setTopUsers actionini chaqirib, data ni reducerga yuboradi.
 }); // bu yerda setPopularDishes reducer orqliy o'zimizni setPopularDishes komandamizni hosil qilyapmiz, data ni reducerga yuboradi
-/* const popularDishesRetriever = createSelector(
-  retrievePopularDishes,
-  (popularDishes) => ({ popularDishes }),
-); */
+
 // createSelectorsiz har safar yangi quti yaratilardi. Store’ning boshqa joyi o’zgarsa ham React “yangi quti keldi” deb HomePage’ni qayta chizardi.
 //createSelector esa natijani eslab qoladi: popularDishes o’zgarmasa, o’sha eski quti qaytadi va keraksiz re-render bo’lmaydi.
 
 /** View/ UI **/
 export default function HomePage() {
-  const { setPopularDishes, setNewDishes } = actionDispatch(useDispatch()); //useDispatch bilan yozadi
-  // const { popularDishes } = useSelector(popularDishesRetriever); //. useSelector bilan o’qiydi, bu yerda useSelector orqali popularDishes ni olish uchun funksiya yaratildi
+  const { setPopularDishes, setNewDishes, setTopUsers } =
+    actionDispatch(useDispatch()); //useDispatch bilan yozadi
+
   // Malumotlarni Redux arxitekturiga yozish mantigi bilan ishlash uchun,
   // bu component ichida uch hil lifecycle metodlarini ishlatish mumkin.
 
@@ -65,6 +66,15 @@ export default function HomePage() {
       })
       .then((data) => {
         setNewDishes(data); // Backenddan olingan malumotlar Redux store ga yoziladi
+      })
+      .catch((err) => console.log(err));
+
+    const member = new MemberService();
+    member
+      .getTopUsers()
+      .then((data) => {
+        setTopUsers(data); // Backenddan olingan malumotlar Redux store ga yoziladi
+        console.log("Top Users:", data);
       })
       .catch((err) => console.log(err));
   }, []);
