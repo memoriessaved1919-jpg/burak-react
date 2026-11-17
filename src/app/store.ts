@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import HomePageReducer from "./screens/homePage/slice";
 import reduxLogger from "redux-logger";
+import productsPageReducer from "./screens/productsPage/slice";
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -8,6 +9,7 @@ export const store = configureStore({
     getDefaultMiddleware().concat(reduxLogger), //logger console’ga yozadi
   reducer: {
     homePage: HomePageReducer, // bu yerda homePageSlice.reducer ni ulayapmiz, bu reducer orqali slice holati Redux store ga yoziladi
+    productsPage: productsPageReducer, // bu yerda productsPageSlice.reducer ni ulayapmiz, bu reducer orqali slice holati Redux store ga yoziladi
   },
 });
 

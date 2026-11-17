@@ -18,6 +18,7 @@ class ProductService {
       const result = await axios.get(url);
       console.log("getProducts result:", result);
 
+      // Javob frontend'ga keladi
       return result.data;
     } catch (err) {
       console.log("Error, getProduct:", err);

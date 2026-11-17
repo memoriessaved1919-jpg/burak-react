@@ -8,6 +8,19 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SearchIcon from "@mui/icons-material/Search";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { setRestaurants, setChosenProduct, setProducts } from "./slice";
+import { Product } from "../../../libs/types/product";
+import { createSelector } from "reselect";
+import { retrieveProducts } from "./selector";
+
+const actionDispatch = (dispatch: Dispatch) => ({
+  setProducts: (data: Product[]) => dispatch(setProducts(data)),
+});
+const productRetriever = createSelector(retrieveProducts, (products) => ({
+  products,
+}));
 /** Vaqtinchalik ma'lumot (maydon nomlari bazadagi products kolleksiyasi bilan bir xil) **/
 const products = [
   {
@@ -18,53 +31,53 @@ const products = [
     productImages: ["/img/product-2.jpeg"],
   },
   {
-    productName: "Vegetarian Soup",
+    productName: "Korean Spicy Soup",
     productPrice: 15,
     productSize: "LARGE",
     productViews: 100,
-    productImages: ["/img/product-1.webp"],
-  },
-  {
-    productName: "Salmon Pasta",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-3.jpeg"],
-  },
-  {
-    productName: "Kebuli Rice",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-4.webp"],
+    productImages: ["/img/product-2.jpeg"],
   },
   {
     productName: "Korean Spicy Soup",
     productPrice: 15,
     productSize: "LARGE",
     productViews: 100,
-    productImages: ["/img/product-5.webp"],
+    productImages: ["/img/product-2.jpeg"],
   },
   {
-    productName: "Vegetarian Soup",
+    productName: "Korean Spicy Soup",
     productPrice: 15,
     productSize: "LARGE",
     productViews: 100,
-    productImages: ["/img/product-6.webp"],
+    productImages: ["/img/product-2.jpeg"],
   },
   {
-    productName: "Salmon Pasta",
+    productName: "Korean Spicy Soup",
     productPrice: 15,
     productSize: "LARGE",
     productViews: 100,
-    productImages: ["/img/product-1.webp"],
+    productImages: ["/img/product-2.jpeg"],
   },
   {
-    productName: "Kebuli Rice",
+    productName: "Korean Spicy Soup",
     productPrice: 15,
     productSize: "LARGE",
     productViews: 100,
-    productImages: ["/img/product-7.jpeg"],
+    productImages: ["/img/product-2.jpeg"],
+  },
+  {
+    productName: "Korean Spicy Soup",
+    productPrice: 15,
+    productSize: "LARGE",
+    productViews: 100,
+    productImages: ["/img/product-2.jpeg"],
+  },
+  {
+    productName: "Korean Spicy Soup",
+    productPrice: 15,
+    productSize: "LARGE",
+    productViews: 100,
+    productImages: ["/img/product-2.jpeg"],
   },
 ];
 
