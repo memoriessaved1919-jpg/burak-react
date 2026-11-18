@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Container, Stack } from "@mui/material";
 import Badge from "@mui/material/Badge";
 import Pagination from "@mui/material/Pagination";
@@ -7,6 +7,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SearchIcon from "@mui/icons-material/Search";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -14,72 +15,17 @@ import { setRestaurants, setChosenProduct, setProducts } from "./slice";
 import { Product } from "../../../libs/types/product";
 import { createSelector } from "reselect";
 import { retrieveProducts } from "./selector";
+import ProductService from "../../services/ProductService";
+import { ProductCollection } from "../../../libs/enums/product.enum";
+import { serverApi } from "../../../libs/config";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setProducts: (data: Product[]) => dispatch(setProducts(data)),
 });
-const productRetriever = createSelector(retrieveProducts, (products) => ({
+const productsRetriever = createSelector(retrieveProducts, (products) => ({
   products,
 }));
 /** Vaqtinchalik ma'lumot (maydon nomlari bazadagi products kolleksiyasi bilan bir xil) **/
-const products = [
-  {
-    productName: "Korean Spicy Soup",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-2.jpeg"],
-  },
-  {
-    productName: "Korean Spicy Soup",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-2.jpeg"],
-  },
-  {
-    productName: "Korean Spicy Soup",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-2.jpeg"],
-  },
-  {
-    productName: "Korean Spicy Soup",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-2.jpeg"],
-  },
-  {
-    productName: "Korean Spicy Soup",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-2.jpeg"],
-  },
-  {
-    productName: "Korean Spicy Soup",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-2.jpeg"],
-  },
-  {
-    productName: "Korean Spicy Soup",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-2.jpeg"],
-  },
-  {
-    productName: "Korean Spicy Soup",
-    productPrice: 15,
-    productSize: "LARGE",
-    productViews: 100,
-    productImages: ["/img/product-2.jpeg"],
-  },
-];
 
 const categories = ["DISH", "SALAD", "DRINK", "DESERT", "OTHER"];
 const filters = ["NEW", "PRICE", "VIEWS"];
@@ -91,6 +37,22 @@ const familyBrands = [
 ];
 
 export default function Products() {
+  const { setProducts } = actionDispatch(useDispatch());
+  const { products } = useSelector(productsRetriever);
+
+  useEffect(() => {
+    const product = new ProductService();
+    product
+      .getProducts({
+        page: 1,
+        limit: 8,
+        order: "createdAt",
+        productCollection: ProductCollection.DISH,
+        search: "",
+      })
+      .then((data) => setProducts(data)) // reduxga jonatyapmiz
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div className={"products"}>
       <Container>
@@ -144,40 +106,50 @@ export default function Products() {
 
             <Stack className={"product-wrapper"}>
               {products.length !== 0 ? (
-                products.map((product, index) => (
-                  <Stack key={index} className={"product-card"}>
-                    <Stack
-                      className={"product-img"}
-                      sx={{
-                        backgroundImage: `url(${product.productImages[0]})`,
-                      }}
-                    >
-                      <div className={"product-sale"}>
-                        {product.productSize} size
-                      </div>
-                      <Button className={"shop-btn"}>
-                        <img src={"/icons/shopping-cart.svg"} alt={"cart"} />
-                      </Button>
-                      <Button className={"view-btn"}>
-                        <Badge
-                          badgeContent={product.productViews}
-                          color={"secondary"}
-                        >
-                          <RemoveRedEyeIcon sx={{ color: "#ffffff" }} />
-                        </Badge>
-                      </Button>
+                products.map((product: Product) => {
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
+                  const sizeVolume =
+                    product.productCollection === ProductCollection.DRINK
+                      ? product.productVolume + " litre"
+                      : product.productSize + " size";
+                  return (
+                    <Stack key={product._id} className={"product-card"}>
+                      <Stack
+                        className={"product-img"}
+                        sx={{
+                          backgroundImage: `url(${imagePath})`,
+                        }}
+                      >
+                        <div className={"product-sale"}>{sizeVolume}</div>
+                        <Button className={"shop-btn"}>
+                          <img src={"/icons/shopping-cart.svg"} alt={"cart"} />
+                        </Button>
+                        <Button className={"view-btn"}>
+                          <Badge
+                            badgeContent={product.productViews}
+                            color={"secondary"}
+                          >
+                            <RemoveRedEyeIcon
+                              sx={{
+                                color:
+                                  product.productViews === 0 ? "gray" : "white",
+                              }}
+                            />
+                          </Badge>
+                        </Button>
+                      </Stack>
+                      <Box className={"product-desc"}>
+                        <span className={"product-title"}>
+                          {product.productName}
+                        </span>
+                        <div className={"product-price"}>
+                          <MonetizationOnIcon />
+                          {product.productPrice}
+                        </div>
+                      </Box>
                     </Stack>
-                    <Box className={"product-desc"}>
-                      <span className={"product-title"}>
-                        {product.productName}
-                      </span>
-                      <div className={"product-price"}>
-                        <img src={"/img/coin.jpeg"} alt={"coin"} />
-                        {product.productPrice}
-                      </div>
-                    </Box>
-                  </Stack>
-                ))
+                  );
+                })
               ) : (
                 <Box className={"no-data"}>Products are not available!</Box>
               )}
