@@ -51,6 +51,8 @@
   width: 360px;
   height: 32px;
   padding-left: 17px;
+  padding-right: 112px;
+  box-sizing: border-box;
   border: 1px solid #ffffff;
   border-radius: 18.5px;
   background: #fffcfc;
@@ -83,6 +85,12 @@
   gap: 20px;
 }
 
+.products-page .products .dishes-filter-box {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
 .products-page .products .filter-btn {
   width: 70px;
   height: 37px;
@@ -107,6 +115,12 @@
 
 .products-page .products .product-category {
   margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.products-page .products .category-main {
   display: flex;
   flex-direction: column;
   gap: 10px;
