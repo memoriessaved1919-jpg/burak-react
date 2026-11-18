@@ -11,7 +11,7 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setRestaurants, setChosenProduct, setProducts } from "./slice";
+import { setProducts } from "./slice";
 import { Product, ProductInquiry } from "../../../libs/types/product";
 import { createSelector } from "reselect";
 import { retrieveProducts } from "./selector";
@@ -95,7 +95,7 @@ export default function Products() {
     setProductSearch({ ...productSearch });
   };
 
-  // producni bosganda uni idsi orqali products urlga o'tib ketish
+  // producni bosganda uni idsi orqali chosenproduct urlga o'tib ketish
 
   const chooseDishhandler = (id: string) => {
     history.push(`/products/${id}`);

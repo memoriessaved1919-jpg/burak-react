@@ -11,7 +11,7 @@ const productsPageSlice = createSlice({
   name: "productsPage",
   initialState,
   reducers: {
-    setRestaurants: (state, action) => {
+    setRestaurant: (state, action) => {
       state.restaurants = action.payload;
     },
     setChosenProduct: (state, action) => {
@@ -23,7 +23,7 @@ const productsPageSlice = createSlice({
   },
 });
 
-export const { setRestaurants, setChosenProduct, setProducts } =
+export const { setRestaurant, setChosenProduct, setProducts } =
   productsPageSlice.actions; // reducerlarni tashqariga export qilish, bu reducerlar componentlarda ishlatiladi
 
 const ProductsPageReducer = productsPageSlice.reducer;
