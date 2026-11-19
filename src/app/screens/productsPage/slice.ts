@@ -24,8 +24,8 @@ const productsPageSlice = createSlice({
 });
 
 export const { setRestaurant, setChosenProduct, setProducts } =
-  productsPageSlice.actions; // reducerlarni tashqariga export qilish, bu reducerlar componentlarda ishlatiladi
+  productsPageSlice.actions; // action yaratuvchilar uchun (komponentlarni dipach qilish uchun)
 
-const ProductsPageReducer = productsPageSlice.reducer;
+const ProductsPageReducer = productsPageSlice.reducer; // redux storega ulash uchun
 
 export default ProductsPageReducer;

@@ -19,6 +19,7 @@ import ProductService from "../../services/ProductService";
 import { ProductCollection } from "../../../libs/enums/product.enum";
 import { serverApi } from "../../../libs/config";
 import { useHistory } from "react-router-dom";
+import { CartItem } from "../../../libs/types/search";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setProducts: (data: Product[]) => dispatch(setProducts(data)),
@@ -26,6 +27,10 @@ const actionDispatch = (dispatch: Dispatch) => ({
 const productsRetriever = createSelector(retrieveProducts, (products) => ({
   products,
 }));
+
+interface ProductsProps {
+  onAdd: (item: CartItem) => void;
+}
 /** Vaqtinchalik ma'lumot (maydon nomlari bazadagi products kolleksiyasi bilan bir xil) **/
 
 const familyBrands = [
@@ -35,10 +40,12 @@ const familyBrands = [
   { brandName: "Doner", imagePath: "/img/doner.webp" },
 ];
 
-export default function Products() {
+export default function Products(props: ProductsProps) {
+  const { onAdd } = props;
   const { setProducts } = actionDispatch(useDispatch());
-  const { products } = useSelector(productsRetriever);
+  const { products } = useSelector(productsRetriever); // selectordan chaqirib oldik
   const [productSearch, setProductSearch] = useState<ProductInquiry>({
+    // bu qiymatlar faqat boshlang’ich holat
     page: 1,
     limit: 8,
     order: "createdAt",
@@ -88,7 +95,7 @@ export default function Products() {
     setProductSearch({ ...productSearch });
   };
 
-  // Pagiation uchun handler
+  // Pagination uchun handler
 
   const paginationHandler = (e: ChangeEvent<any>, value: number) => {
     productSearch.page = value;
@@ -269,7 +276,20 @@ export default function Products() {
                         }}
                       >
                         <div className={"product-sale"}>{sizeVolume}</div>
-                        <Button className={"shop-btn"}>
+                        <Button
+                          className={"shop-btn"}
+                          onClick={(e) => {
+                            console.log("BUTTON PRESSED");
+                            onAdd({
+                              _id: product._id,
+                              quantity: 1,
+                              name: product.productName,
+                              price: product.productPrice,
+                              image: product.productImages[0],
+                            });
+                            e.stopPropagation();
+                          }}
+                        >
                           <img src={"/icons/shopping-cart.svg"} alt={"cart"} />
                         </Button>
                         <Button className={"view-btn"}>

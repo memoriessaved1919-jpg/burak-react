@@ -4,6 +4,7 @@ import { Product } from "./product";
 // Store qanday ko'rinishda bo'ladi.
 
 /** REACT APP STATE **/
+// Butun Storeni chizmasi
 export interface AppRootState {
   homePage: HomePageState;
   productsPage: ProductsPageState;
