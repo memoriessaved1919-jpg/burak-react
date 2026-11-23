@@ -9,26 +9,22 @@ const initialState: OrdersPageState = {
 };
 
 const ordersPageSlice = createSlice({
-  name: "ordersPage", // Slice nomi, bu nom Redux store da ishlatiladi
-  initialState, // Slice boshlang'ich holati, bu holat Redux store da saqlanadi
+  name: "ordersPage",
+  initialState,
   reducers: {
-    // reducer esa store’ni yangilaydigan ishchi
-    // Reducerlar, bu funksiyalar orqali slice holatini o'zgartirish mumkin
     setPausedOrders: (state, action) => {
-      // state - yuqoridagi initialState, action - reducer orqali yuborilgan malumotlar
-      //
-      state.pausedOrders = action.payload; // payload - reducer orqali yuborilgan malumotlar, bu malumot state.popularDishes ga tenglanyapti
+      state.pausedOrders = action.payload;
     },
     setProcessOrders: (state, action) => {
       state.processOrders = action.payload;
     },
-    setfFnidshedOrders: (state, action) => {
+    setFinishedOrders: (state, action) => {
       state.finishedOrders = action.payload;
     },
   },
 });
 
-export const { setPausedOrders, setProcessOrders, setfFnidshedOrders } =
+export const { setPausedOrders, setProcessOrders, setFinishedOrders } =
   ordersPageSlice.actions; // Reducerlar orqali yuborilgan actionlarni export qilish, bu actionlar componentlarda ishlatiladi
 
 const OrdersPageReducer = ordersPageSlice.reducer;
