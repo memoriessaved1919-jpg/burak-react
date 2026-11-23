@@ -278,6 +278,7 @@ export default function Products(props: ProductsProps) {
                         <div className={"product-sale"}>{sizeVolume}</div>
                         <Button
                           className={"shop-btn"}
+                          // [SAVAT 1/10] Savat tugmasi bosiladi: mahsulotdan 5 ta ma'lumot olib onAdd'ga beramiz
                           onClick={(e) => {
                             onAdd({
                               _id: product._id,

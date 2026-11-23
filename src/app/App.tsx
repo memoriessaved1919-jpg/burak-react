@@ -23,7 +23,9 @@ import { useGlobals } from "./hooks/useGlobals";
 function App() {
   const location = useLocation();
   const { setAuthMember } = useGlobals();
+  // [SAVAT 3/10] useBasket ishga tushadi: App savatning hamma mantiqini bitta qatorda oladi
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
+  // [AUTH 2/10] Modal ochiladi: signupOpen / loginOpen true bo'lsa, AuthenticationModal props orqali oladi
   const [signupOpen, setSignupOpen] = useState<boolean>(false);
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -40,7 +42,9 @@ function App() {
   const handleLogoutRequest = async () => {
     try {
       const member = new MemberService();
+      // [LOGOUT 3/8] So'rov ketadi: MemberService.logout, cookie ham birga ketadi
       await member.logout();
+      // [LOGOUT 7/8] Context tozalanadi: xabar chiqadi va setAuthMember(null)
       await sweetTopSuccessAlert("Successfully logged out!", 700);
       setAuthMember(null);
     } catch (err) {
@@ -52,6 +56,7 @@ function App() {
   return (
     <>
       {location.pathname === "/" ? (
+        // [SAVAT 8/10] Navbar'ga yetib boradi: cartItems props orqali App → HomeNavbar → Basket
         <HomeNavbar
           cartItems={cartItems}
           onAdd={onAdd}
@@ -82,6 +87,7 @@ function App() {
       )}
       <Switch>
         <Route path="/products">
+          {/* [SAVAT 2/10] onAdd qayerdan keldi: App → ProductsPage → Products, props orqali */}
           <ProductsPage onAdd={onAdd} />
         </Route>
         <Route path="/orders">

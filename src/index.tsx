@@ -19,6 +19,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      {/* [CONTEXT 1/8] Sahifa ochiladi: Redux → ContextProvider → App */}
       <ContextProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />

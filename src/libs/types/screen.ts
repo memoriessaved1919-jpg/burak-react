@@ -1,4 +1,5 @@
 import { Member } from "./member";
+import { Order } from "./order";
 import { Product } from "./product";
 
 // Store qanday ko'rinishda bo'ladi.
@@ -8,6 +9,7 @@ import { Product } from "./product";
 export interface AppRootState {
   homePage: HomePageState;
   productsPage: ProductsPageState;
+  ordersPage: OrdersPageState;
 }
 
 /** HOMEPAGE STATE **/
@@ -25,3 +27,8 @@ export interface ProductsPageState {
 }
 
 /** ORDERS PAGE  **/
+export interface OrdersPageState {
+  pausedOrders: Order[];
+  processOrders: Order[];
+  finishedOrders: Order[];
+}

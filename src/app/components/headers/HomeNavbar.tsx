@@ -45,6 +45,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
     handleLogoutRequest,
   } = props;
 
+  // [CONTEXT 7/8] Navbar o'qiydi: authMember props'siz, useGlobals bilan
   const { authMember } = useGlobals();
   /** HANDLER **/
 
@@ -96,6 +97,9 @@ export default function HomeNavbar(props: HomeNavbarProps) {
               onDeleteAll={onDeleteAll}
             />
 
+            {/* [AUTH 10/10] Navbar o'zgaradi: authMember bor bo'lsa, LOGIN o'rniga user rasmi */}
+            {/* [CONTEXT 8/8] Ekranda: authMember bor → user rasmi, null → LOGIN / SIGN UP */}
+            {/* [LOGOUT 8/8] Navbar qaytadi: authMember null → yana LOGIN va SIGN UP */}
             {!authMember ? (
               <Box>
                 <Button
@@ -115,6 +119,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                     : "/icons/default-user.svg"
                 }
                 aria-haspopup={"true"}
+                // [LOGOUT 1/8] Avatar bosiladi: anchorEl orqali menyu ochiladi
                 onClick={handleLogoutClick}
               />
             )}
@@ -154,6 +159,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
+              {/* [LOGOUT 2/8] Logout tanlanadi: App'dan props orqali kelgan handleLogoutRequest ishlaydi */}
               <MenuItem onClick={handleLogoutRequest}>
                 <ListItemIcon>
                   <Logout fontSize="small" style={{ color: "blue" }} />
@@ -173,6 +179,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                 <Button
                   variant="contained"
                   className="signup-button"
+                  // [AUTH 1/10] Tugma bosiladi: SIGN UP / LOGIN App'dagi state'ni true qiladi
                   onClick={() => setSignupOpen(true)}
                 >
                   SIGN UP

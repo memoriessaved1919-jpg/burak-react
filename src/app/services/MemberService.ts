@@ -39,11 +39,16 @@ class MemberService {
   public async signup(input: MemberInput): Promise<Member> {
     try {
       const url = this.path + "/member/signup";
+      // [AUTH 5/10] So'rov ketadi: axios.post + withCredentials (backend cookie'si saqlansin)
+      // [AUTH 6/10] Backend tekshiradi: signup → bcrypt.hash + create, login → findOne + bcrypt.compare
+      // [AUTH 7/10] Backend token yasab accessToken cookie'siga qo'yadi va member'ni qaytaradi
       const result = await axios.post(url, input, { withCredentials: true });
       console.log("signup:", result);
 
       const member: Member = result.data.member;
       console.log("member:", member);
+      // kelgan malumotni localStoragega joylab olyapmiz
+      // [AUTH 8/10] localStorage'ga yoziladi: refresh'dan keyin ham login saqlansin
       localStorage.setItem("memberData", JSON.stringify(member));
 
       return member;
@@ -73,9 +78,12 @@ class MemberService {
   public async logout(): Promise<void> {
     try {
       const url = this.path + "/member/logout";
+      // [LOGOUT 4/8] Backend tekshiradi: verifyAuth cookie'dagi tokenni tekshiradi
+      // [LOGOUT 5/8] Backend accessToken cookie'sini maxAge: 0 bilan o'chiradi
       const result = await axios.post(url, {}, { withCredentials: true });
       console.log("logout:", result);
 
+      // [LOGOUT 6/8] localStorage tozalanadi: memberData o'chiriladi
       localStorage.removeItem("memberData");
 
       return result.data.logout;

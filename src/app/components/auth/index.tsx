@@ -46,6 +46,7 @@ interface AuthenticationModalProps {
 export default function AuthenticationModal(props: AuthenticationModalProps) {
   const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
   const classes = useStyles();
+  // [AUTH 3/10] Inputlar to'ldiriladi: har bir harf onChange orqali state'ga yoziladi
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
@@ -74,6 +75,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
 
   const handleSignupRequest = async () => {
     try {
+      // [AUTH 4/10] Handler tekshiradi: hamma maydon to'ldirilganmi
       const isFulfill =
         memberNick !== "" && memberPhone !== "" && memberPassword !== "";
       if (!isFulfill) throw new Error(Messages.error3);
@@ -88,6 +90,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       const result = await member.signup(signupInput);
 
       //Saving Authentificated user
+      // [AUTH 9/10] Context'ga yoziladi: setAuthMember va modal yopiladi
       setAuthMember(result);
       handleSignupClose();
     } catch (err) {

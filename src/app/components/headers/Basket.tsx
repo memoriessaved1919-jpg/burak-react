@@ -22,6 +22,7 @@ export default function Basket(props: BasketProps) {
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
   const authMember = null;
   const history = useHistory();
+  // [SAVAT 9/10] Basket ko'rsatadi: badge'da soni, reduce bilan jami narx, 100$ dan kam bo'lsa yetkazish 5$
   const itemsPrice = cartItems.reduce(
     (a: number, c: CartItem) => a + c.quantity * c.price,
     0,
