@@ -12,12 +12,15 @@ import { Order, OrderItem } from "../../../libs/types/order";
 
 /** REDUX SLICE & SELECTOR **/
 const pausedOrdersRetriever = createSelector(
-  retrievePausedOrders,
-  (pausedOrders) => ({ pausedOrders }),
+  retrievePausedOrders, // ① kirish: selector.ts dan → Store'dagi pausedOrders arrayni oladi
+  (pausedOrders) => ({ pausedOrders }), // ② chiqish: pausedOrdersRetriever uni { pausedOrders } obyektiga o'raydi
 );
 
 export default function PausedOrders() {
-  const { pausedOrders } = useSelector(pausedOrdersRetriever);
+  const { pausedOrders } = useSelector(pausedOrdersRetriever); // hook
+  // useSelector esa komponentga pausedOrders ni beradi;
+
+  /** HANDLERS **/
   return (
     <TabPanel value={"1"}>
       <Stack>
