@@ -7,8 +7,13 @@ import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrievePausedOrders } from "./selector";
 import { Product } from "../../../libs/types/product";
-import { serverApi } from "../../../libs/config";
-import { Order, OrderItem } from "../../../libs/types/order";
+import { Messages, serverApi } from "../../../libs/config";
+import { Order, OrderItem, OrderUpdateInput } from "../../../libs/types/order";
+import { T } from "../../../libs/types/common";
+import { sweetErrorHandling } from "../../../libs/sweetAlert";
+import { OrderStatus } from "../../../libs/enums/order.enum";
+import { useGlobals } from "../../hooks/useGlobals";
+import OrderService from "../../services/OrderService";
 
 /** REDUX SLICE & SELECTOR **/
 const pausedOrdersRetriever = createSelector(
@@ -16,11 +21,70 @@ const pausedOrdersRetriever = createSelector(
   (pausedOrders) => ({ pausedOrders }), // ② chiqish: pausedOrdersRetriever uni { pausedOrders } obyektiga o'raydi
 );
 
-export default function PausedOrders() {
+interface PausedOrdersProps {
+  setValue: (input: string) => void;
+}
+
+export default function PausedOrders(props: PausedOrdersProps) {
+  const { setValue } = props;
+  const { authMember, setOrderBuilder } = useGlobals();
   const { pausedOrders } = useSelector(pausedOrdersRetriever); // hook
   // useSelector esa komponentga pausedOrders ni beradi;
 
   /** HANDLERS **/
+
+  // cancel button bosilganda orderlar yoqolishi
+  const deleteOrderHandler = async (e: T) => {
+    try {
+      if (!authMember) throw new Error(Messages.error2);
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+        // update qilmoqchi bolgan inputimiz
+        orderId: orderId,
+        orderStatus: OrderStatus.DELETE,
+      };
+
+      const confirmation = window.confirm("Do you want to delete the order?");
+      if (confirmation) {
+        const order = new OrderService();
+        await order.UpdateOrders(input);
+        // ORDER REBUILD
+        setOrderBuilder(new Date());
+      }
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  };
+
+  const processOrderHandler = async (e: T) => {
+    try {
+      if (!authMember) throw new Error(Messages.error2);
+      // PAYMENT PROCESS
+
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+        // update qilmoqchi bolgan inputimiz
+        orderId: orderId,
+        orderStatus: OrderStatus.PROCESS,
+      };
+
+      const confirmation = window.confirm(
+        "Do you want to proceed with payment?",
+      );
+      if (confirmation) {
+        const order = new OrderService();
+        await order.UpdateOrders(input);
+        // => PROCESS ORDER
+        setValue("2");
+        // REFRESH VIA CONTEXT
+        setOrderBuilder(new Date());
+      }
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  };
   return (
     <TabPanel value={"1"}>
       <Stack>
@@ -75,13 +139,20 @@ export default function PausedOrders() {
                   <p>${order.orderTotal}</p>
                 </Box>
                 <Button
+                  value={order._id}
                   variant="contained"
                   color="secondary"
                   className={"cancel-button"}
+                  onClick={deleteOrderHandler}
                 >
                   Cancel
                 </Button>
-                <Button variant="contained" className={"pay-button"}>
+                <Button
+                  onClick={processOrderHandler}
+                  value={order._id}
+                  variant="contained"
+                  className={"pay-button"}
+                >
                   Payment
                 </Button>
               </Box>

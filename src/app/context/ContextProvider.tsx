@@ -19,6 +19,7 @@ const ContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         JSON.parse(localStorage.getItem("memberData") as string)
       : null,
   );
+  const [orderBuilder, setOrderBuilder] = useState<Date>(new Date());
 
   console.log(" === verify === ");
 
@@ -26,7 +27,9 @@ const ContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     // bu yerda useGlobalga login bolgan userni datasi berilyapti
     // endi komponentlar ichida useGlobals orqali authMember va setAuthMember'ni ishlatish mumkin
     // [CONTEXT 4/8] Taxtaga ilinadi: value orqali authMember va setAuthMember
-    <GlobalContext.Provider value={{ authMember, setAuthMember }}>
+    <GlobalContext.Provider
+      value={{ authMember, setAuthMember, orderBuilder, setOrderBuilder }}
+    >
       {/* [CONTEXT 5/8] Hamma ko'ra oladi: children = App va undagi hamma komponent */}
       {children}
     </GlobalContext.Provider>

@@ -24,7 +24,7 @@ interface BasketProps {
 
 export default function Basket(props: BasketProps) {
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
-  const { authMember } = useGlobals();
+  const { authMember, setOrderBuilder } = useGlobals();
   const history = useHistory();
   // [SAVAT 9/10] Basket ko'rsatadi: badge'da soni, reduce bilan jami narx, 100$ dan kam bo'lsa yetkazish 5$
   const itemsPrice = cartItems.reduce(
@@ -56,7 +56,7 @@ export default function Basket(props: BasketProps) {
       onDeleteAll(); //mahsulot order bo’lib bazaga yozilishi bilan savatdan o'chiryapmiz
 
       // REFRESH VIA CONTEXT
-
+      setOrderBuilder(new Date());
       history.push("/orders");
     } catch (err) {
       console.log(err);
