@@ -79,7 +79,7 @@ export function Settings() {
     const file = e.target.files[0];
     console.log("file:", file);
     const fileType = file.type,
-      validateImageTypes = ["image/jpg,", "image/jpeg", "image/png"];
+      validateImageTypes = ["image/jpg", "image/jpeg", "image/png"];
 
     if (!validateImageTypes.includes(fileType)) {
       sweetErrorHandling(Messages.error5).then();
