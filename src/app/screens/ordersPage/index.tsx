@@ -14,7 +14,10 @@ import { Order, OrderInquiry } from "../../../libs/types/order";
 import { OrderStatus } from "../../../libs/enums/order.enum";
 import OrderService from "../../services/OrderService";
 import { useGlobals } from "../../hooks/useGlobals";
+import { useHistory } from "react-router-dom";
 import "../../../css/order.css";
+import { serverApi } from "../../../libs/config";
+import { MemberType } from "../../../libs/enums/member.enum";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -28,7 +31,8 @@ const actionDispatch = (dispatch: Dispatch) => ({
 export default function OrdersPage() {
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
-  const { orderBuilder } = useGlobals();
+  const { orderBuilder, authMember } = useGlobals();
+  const history = useHistory();
   const [value, setValue] = useState("1");
 
   const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
@@ -61,6 +65,8 @@ export default function OrdersPage() {
   const handleChange = (e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  if (!authMember) history.push("/");
 
   return (
     <div className={"order-page"}>
@@ -95,27 +101,43 @@ export default function OrdersPage() {
             <Box className={"member-box"}>
               <div className={"order-user-img"}>
                 <img
-                  src={"/icons/default-user.svg"}
+                  src={
+                    authMember?.memberImage
+                      ? `${serverApi}/${authMember.memberImage}`
+                      : "/icons/default-user.svg"
+                  }
                   className={"order-user-avatar"}
                   alt={"user"}
                 />
                 <div className={"order-user-icon-box"}>
                   <img
-                    src={"/icons/user-badge.svg"}
+                    src={
+                      authMember?.memberType === MemberType.RESTAURANT
+                        ? "/icons/restaurant.svg"
+                        : "/icons/user-badge.svg"
+                    }
                     className={"order-user-prof-img"}
                     alt={"badge"}
                   />
                 </div>
               </div>
-              <span className={"order-user-name"}>Justin</span>
-              <span className={"order-user-prof"}>USER</span>
+              <span className={"order-user-name"}>
+                {authMember?.memberNick}
+              </span>
+              <span className={"order-user-prof"}>
+                {authMember?.memberType}
+              </span>
             </Box>
             <Box className={"liner"} />
             <Box className={"order-user-address"}>
               <div style={{ display: "flex" }}>
                 <LocationOnIcon />
               </div>
-              <div className={"spec-address-txt"}>South Korea, Busan</div>
+              <div className={"spec-address-txt"}>
+                {authMember?.memberAddress
+                  ? authMember.memberAddress
+                  : "do not exist"}
+              </div>
             </Box>
           </Box>
 
